@@ -1,0 +1,2 @@
+user : tension headache
+bot : - symptom noted. The cause of tension headaches is unclear, but stress, anxiety, and depression are common triggers. would you like to talk to a doctor?

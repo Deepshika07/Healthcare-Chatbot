@@ -1,0 +1,2 @@
+user : Deepshikha
+bot : - okay. can you tell me what's wrong? what are your symptoms?

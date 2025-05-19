@@ -1,0 +1,2 @@
+user : im good tell about u
+bot : - okay. can you tell me what's wrong? what are your symptoms?

@@ -1,0 +1,2 @@
+user : hi
+bot : - Hello. How are you feeling today?

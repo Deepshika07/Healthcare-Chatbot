@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>AI-Healthcare Chatbot</h1>
+<div>
+    <div id="chatbox">
+        <p class="botText"><span>Please try typing full sentences as I am still learning!</span></p>
+        <p class="botText"><span>I am a chatbot. You can begin conversation by typing in a message and pressing enter.</span></p>
+        <p class="botText"><span>Hi there! What is your name?</span></p>
+    </div>
+   <!--  <div id="userInput">
+        <input id="textInput" type="text" name="msg" placeholder="Message">
+        <input id="buttonInput" type="submit" value="Send">
+        <button id="voiceInput">Speak</button> New button for voice input -->
+   <div id="userInput" style="position: relative;">
+    <input id="textInput" type="text" name="msg" placeholder="Message">
+    <button id="voiceInput" style="position: absolute; right: 330px; top: 50%; transform: translateY(-50%);">
+        <img src="{{ url_for('static', filename='microphone_icon.png') }}" alt="Speak" width="40" height="40">
+    </button>
+</div>
+
+
+    <script>
+     function speakText(text) {
+    var synth = window.speechSynthesis;
+    var utterance = new SpeechSynthesisUtterance(text);
+    synth.speak(utterance);
+}
+
+function getBotResponse(isSpeech) {
+    var rawText = $("#textInput").val();
+    var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+    $("#textInput").val("");
+    $("#chatbox").append(userHtml);
+    document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+
+    // Construct the full URL including hostname and port for the GET request
+    var url = "http://127.0.0.1:5000/get";
+
+    // Send the GET request to the Flask server
+    $.get(url, { msg: rawText, isSpeech: isSpeech }).done(function (data) {
+        console.log("url", url, rawText)
+        console.log("data", data)
+        var botHtml = '<p class="botText"><span>' + data.text + '</span></p>';
+        $("#chatbox").append(botHtml);
+        document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+
+        // Create an audio element for bot's response
+        var audioElement = document.createElement('audio');
+        audioElement.src = data.audio; // Use the path to the audio file returned by Flask
+        audioElement.autoplay = true; // Autoplay the audio
+        audioElement.controls = true; // Show audio controls
+
+        // Append the audio element to the chat box
+        $("#chatbox").append(audioElement);
+        // Speak response using Web Speech API if the response is from speech input
+        if (!isSpeech) {
+            speakText(data.text);
+        }
+    });
+}
+
+// Handle pressing Enter key
+$("#textInput").keypress(function (e) {
+    if (e.which == 13) {
+        getBotResponse(false); // Pass false to indicate text input
+    }
+});
+
+// Handle clicking the Send button
+$("#buttonInput").click(function () {
+    getBotResponse(false); // Pass false to indicate text input
+});
+
+// Handle clicking the Speak button
+$("#voiceInput").click(function () {
+    $.get("/voice_input").done(function (data) {
+        $("#textInput").val(data); // Populate text input with voice input
+        getBotResponse(true); // Pass true to indicate speech input
+    });
+});
+
+
+    </script>
+</div>
+</body>
+</html>

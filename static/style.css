@@ -1,0 +1,73 @@
+/* Resetting default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styling the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Styling the header */
+h1 {
+    text-align: center;
+    padding: 20px 0;
+    color: #333;
+}
+
+/* Styling the chat container */
+#chatbox {
+    width: calc(100% - 40px); /* Adjusting the chatbox width dynamically */
+    max-width: 600px; /* Setting a maximum width for the chatbox */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for user and bot messages */
+.userText, .botText {
+    margin-bottom: 10px;
+}
+
+.userText span, .botText span {
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: calc(100% - 50px); /* Adjusting the maximum width */
+}
+
+.userText span {
+    background-color: #b2d8d8;
+    color: #333;
+}
+
+.botText span {
+    background-color: #6eb4ff;
+    color: #fff;
+}
+
+/* Styling for the input area */
+#userInput {
+    margin-top: 20px;
+    display: flex;
+    align-items: center; /* Align items vertically */
+    flex-wrap: wrap; /* Allow items to wrap */
+}
+.container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+#textInput {
+    flex: 1; /* Allow the text input to expand */
+    margin-left: 320px;
+    max-width: calc(60% - 140px); /* Limiting the max width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Adding margin at the bottom */
+}

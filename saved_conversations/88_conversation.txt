@@ -1,0 +1,2 @@
+user : yes
+bot : - Bye. Nice talking to you
